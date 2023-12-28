@@ -1,0 +1,23 @@
+{
+    "name": "thiio/affirm",
+    "description": "This is a SDK built in PHP for consuming Affirm API as detailed in https://docs.affirm.com/developers/reference/introduction",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Thiio\\Affirm\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Enrique Hoy",
+            "email": "enrique@thiio.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    }
+}
