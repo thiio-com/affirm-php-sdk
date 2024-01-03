@@ -148,33 +148,30 @@ class Client
     {
         if ( !$error->hasResponse() ) return $error->getMessage();
 
-        $responseBodyErrors = $this->handleBodyResponseErrors($error);
         $statusCode = $error->getResponse()->getStatusCode();
-        $errorMessage = "{$statusCode} Unknown error occurred{$responseBodyErrors}";
-        
-        if ( $statusCode === 404 ) {
-            $errorMessage = "{$statusCode} Resource not found{$responseBodyErrors}";
+        switch ($statusCode) {
+            case 404:
+                $errorMessage = '404 Resource not found';
+                break;
+            case 401:
+                $errorMessage = '401 Unauthorized';
+                break;
+            case 400:
+                $errorMessage = '400 Bad request';
+                break;
+            default:
+                $errorMessage = "{$statusCode} Unknown error occurred";
+                break;
         }
         
-        if ( $statusCode === 400 ) {
-            $errorMessage = "{$statusCode} Bad request{$responseBodyErrors}";
-        }
-
-        return $errorMessage;
+        return "{$errorMessage}{$this->handleBodyResponseErrors($error)}";
     }
 
     private function handleBodyResponseErrors(ClientException $error)
     {
-        $errors = '';
-
         if ( !$error->getResponse()->getBody() ) return '';
         $responseBody = json_decode((string)$error->getResponse()->getBody());
-        if ( !$responseBody->errors ) return '';
 
-        foreach ( $responseBody->errors as $responseBodyError ) {
-            $errors = $errors === '' ? ": {$responseBodyError}" : "{$errors}, {$responseBodyError}";
-        }
-
-        return $errors;
+        return $responseBody->message ? ": {$responseBody->message}" : '';
     }
 }
