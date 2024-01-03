@@ -4,6 +4,7 @@ namespace Thiio\Affirm\Handlers;
 
 use Exception;
 use Thiio\Affirm\Client;
+use Thiio\Affirm\Exceptions\ApiException;
 use Thiio\Affirm\Exceptions\InvalidArgumentException;
 use Thiio\Affirm\Traits\BaseResponseTrait;
 
@@ -35,7 +36,7 @@ class ChargeHandler extends Client
             $defaultResponse->msg = 'Charge authorized';  
             $defaultResponse->success = true;
             $defaultResponse->{'charge'} = (Object)$response;
-        } catch (Exception $e) {
+        } catch (Exception | ApiException $e) {
             $defaultResponse->msg = 'Error trying to authorize Charge';
             $defaultResponse->error = $e->getMessage();
         } finally {
@@ -59,7 +60,7 @@ class ChargeHandler extends Client
             $defaultResponse->msg = 'Charge captured';  
             $defaultResponse->success = true;
             $defaultResponse->{'charge'} = (Object)$response;
-        } catch (Exception $e) {
+        } catch (Exception | ApiException $e) {
             $defaultResponse->msg = 'Error trying to capture Charge';
             $defaultResponse->error = $e->getMessage();
         } finally {
@@ -86,7 +87,7 @@ class ChargeHandler extends Client
             $defaultResponse->msg = 'Charge refunded';  
             $defaultResponse->success = true;
             $defaultResponse->{'charge'} = (Object)$response;
-        } catch (Exception $e) {
+        } catch (Exception | ApiException $e) {
             $defaultResponse->msg = 'Error trying to refund Charge';
             $defaultResponse->error = $e->getMessage();
         } finally {
@@ -109,7 +110,7 @@ class ChargeHandler extends Client
             $defaultResponse->msg = 'Charge voided';  
             $defaultResponse->success = true;
             $defaultResponse->{'charge'} = (Object)$response;
-        } catch (Exception $e) {
+        } catch (Exception | ApiException $e) {
             $defaultResponse->msg = 'Error trying to void Charge';
             $defaultResponse->error = $e->getMessage();
         } finally {
