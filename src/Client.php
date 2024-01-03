@@ -5,7 +5,7 @@ namespace Thiio\Affirm;
 use Exception;
 use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\Exception\ClientException;
-use Thiio\Affirm\exceptions\ApiException;
+use Thiio\Affirm\Exceptions\ApiException;
 use Thiio\Affirm\Exceptions\InvalidArgumentException;
 
 class Client
